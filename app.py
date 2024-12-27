@@ -10,7 +10,7 @@ st.header('Data and Vehicles')
 car_data['type'].value_counts()  # Contar la cantidad de vehículos por marca
 bar_button = st.button('Construir un gráficon de barras')
 fig = px.bar(car_data, x='type'
-             title='Cantidad de autos más vendidos',
+             # title='Cantidad de autos más vendidos',
              xlabel='Tipo de automóvil',
              ylabel='Cantidad')
 fig.show()
