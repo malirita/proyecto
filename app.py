@@ -6,25 +6,60 @@ from pathlib import Path
 # lectura de datos
 car_data = pd.read_csv('vehicles_us.csv')  # leer los datos
 
+# encabezado principal
 st.header('Data and Vehicles')
-car_data['type'].value_counts()  # Contar la cantidad de vehículos por marca
-bar_button = st.button('Construir un gráficon de barras')  # crear botón
-if bar_button:
+
+# primeras filas de los datos
+st.write("## Datos cargados")
+st.write(car_data.head())
+
+st.write("### Distribución del precio por tipo de vehículo:")
+box_button = st.button('Construir gráfico caja de bigotes')  # crear botón
+if box_button:  # se toca el botón
+    st.write(
+        'Creación de un gráfico de tipo de caja de bigotes')
+    # creacion de figura
+    fig = px.box(car_data, x='type', y='price',
+                 title="Distribución de precios por tipo")
+    st.plotly_chart(fig)
+
+st.write("##Relación entre odómetro y precio")
+scatter_button = st.button('Construir gráfico de dispersión')  # crear botón
+if scatter_button:
     # mensaje
     st.write(
-        'Creación de un gráfico de barras para el conteo de los tipos de automóviles')
-    # grafico de barras
-    fig = px.bar(car_data, x='type')
-    st.plotly_chart(fig, use_container_width=True)
+        'Creación de un gráfico de líneas de dispersión')
+    # grafico de dispersión
+    fig = px.scatter(car_data, x='odometer', y='price',
+                     title="Relación entre odómetro y precio")
+    st.plotly_chart(fig)
 
+st.write("##Relación entre el odómetro y el precio del vehículo")
 hist_button = st.button('Construir histograma')  # crear un botón
 if hist_button:  # al hacer clic en el botón
     # escribir un mensaje
     st.write(
         'Creación de un histograma para el conjunto de datos de anuncios de venta de coches')
-
     # crear un histograma
     fig = px.histogram(car_data, x="odometer")
-
     # mostrar un gráfico Plotly interactivo
     st.plotly_chart(fig, use_container_width=True)
+
+# Filtro de vehículos
+st.write("## Filtrar vehículos con menos de 100,000 millas y en excelente estado")
+filtered_data = car_data[(car_data['odometer'] < 100000) & (
+    car_data['condition'] == 'excellent')]
+filtered_button = st.button('Contruir lista')  # crear boton
+if filtered_button:
+    st.write(filtered_data)
+
+# Barra lateral para filtrar datos
+st.sidebar.title("Filtros")
+min_price = st.sidebar.slider("Precio mínimo", 0, 50000, 0)
+max_price = st.sidebar.slider("Precio máximo", 0, 50000, 50000)
+selected_type = st.sidebar.selectbox(
+    "Tipo de vehículo", car_data['type'].unique())
+
+filtered_data = car_data[(car_data['price'] >= min_price) & (
+    car_data['price'] <= max_price) & (car_data['type'] == selected_type)]
+st.write(filtered_data)
