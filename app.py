@@ -61,6 +61,7 @@ filtered_data = car_data[(car_data['odometer'] < 100000) & (
 st.write(filtered_data)
 
 # Barra lateral para filtrar datos
+st.write("### Resultados de la barra lateral")
 st.sidebar.title("Filtros")
 min_price = st.sidebar.slider("Precio mínimo", 0, 50000, 0)
 max_price = st.sidebar.slider("Precio máximo", 0, 50000, 50000)
