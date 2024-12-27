@@ -10,31 +10,24 @@ car_data = pd.read_csv('vehicles_us.csv')  # leer los datos
 st.header('Data and Vehicles')
 
 # primeras filas de los datos
-st.write("## Datos cargados")
+st.write("### Datos cargados")
 st.write(car_data.head())
 
-st.write("### Distribución del precio por tipo de vehículo:")
-box_button = st.button('Construir gráfico caja de bigotes')  # crear botón
-if box_button:  # se toca el botón
-    st.write(
-        'Creación de un gráfico de tipo de caja de bigotes')
-    # creacion de figura
-    fig = px.box(car_data, x='type', y='price',
-                 title="Distribución de precios por tipo")
-    st.plotly_chart(fig)
-
-st.write("##Relación entre odómetro y precio")
+st.write("### Relación entre odómetro y precio")
+# grafico de dispersion
 scatter_button = st.button('Construir gráfico de dispersión')  # crear botón
 if scatter_button:
     # mensaje
     st.write(
-        'Creación de un gráfico de líneas de dispersión')
+        'Creación de un gráfico de líneas de dispersión para el conjunto de datos de anuncios de venta de coches')
     # grafico de dispersión
     fig = px.scatter(car_data, x='odometer', y='price',
-                     title="Relación entre odómetro y precio")
+                     title="Relación entre odómetro y precio",
+                     color='purple',
+                     grid=True,
+                     alpha=0.5)
     st.plotly_chart(fig)
-
-st.write("##Relación entre el odómetro y el precio del vehículo")
+# histograma
 hist_button = st.button('Construir histograma')  # crear un botón
 if hist_button:  # al hacer clic en el botón
     # escribir un mensaje
