@@ -7,7 +7,7 @@ from pathlib import Path
 car_data = pd.read_csv('vehicles_us.csv')  # leer los datos
 
 # limpieza de datos
-print(car_data['odometer'].isna().sum())
+car_data['odometer'] = car_data['odometer'].fillna(0)
 
 # encabezado principal
 st.header('Análisis de plan publicitario para venta de vehiculos')
