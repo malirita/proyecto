@@ -30,9 +30,6 @@ if scatter_button:
         color_continuous_scale='Viridis',  # Cambiar la paleta de colores
         size='odometer',  # Tamaño según el odómetro
         opacity=0.7,  # Opacidad ajustada
-        template='plotly_dark',  # Tema oscuro para el gráfico
-        # Mostrar datos adicionales al pasar el ratón
-        hover_data=['model', 'year']
     )
     st.plotly_chart(fig)
 # histograma
