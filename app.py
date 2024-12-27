@@ -54,6 +54,12 @@ if hist_button:  # al hacer clic en el botón
     )
     st.plotly_chart(fig, use_container_width=True)
 
+# Filtro de vehículos
+st.write("### Filtrar vehículos con menos de 100,000 millas y en excelente estado")
+filtered_data = car_data[(car_data['odometer'] < 100000) & (
+    car_data['condition'] == 'excellent')]
+st.write(filtered_data)
+
 # Barra lateral para filtrar datos
 st.sidebar.title("Filtros")
 min_price = st.sidebar.slider("Precio mínimo", 0, 50000, 0)
